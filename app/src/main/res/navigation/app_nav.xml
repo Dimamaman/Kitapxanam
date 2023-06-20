@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/homeScreen2">
+
+
+    <fragment
+        android:id="@+id/homeScreen2"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.home.HomeScreen"
+        android:label="HomeScreen"
+        tools:layout="@layout/screen_home">
+        <action
+            android:id="@+id/action_homeScreen2_to_infoScreen"
+            app:destination="@id/infoScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoScreen"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.info.InfoScreen"
+        android:label="InfoScreen"
+        tools:layout="@layout/screen_info">
+        <argument
+            android:name="book"
+            app:argType="uz.gita.dima.kitapxanam.data.model.BookData" />
+        <action
+            android:id="@+id/action_infoScreen_to_readBookScreen"
+            app:destination="@id/readBookScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/readBookScreen"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.readbook.ReadBookScreen"
+        android:label="ReadBookScreen"
+        tools:layout="@layout/screen_read_book">
+        <argument
+            android:name="book"
+            app:argType="uz.gita.dima.kitapxanam.data.model.BookData" />
+    </fragment>
+</navigation>

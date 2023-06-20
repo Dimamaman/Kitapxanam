@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "607544629324",
+    "project_id": "kitapxanam",
+    "storage_bucket": "kitapxanam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607544629324:android:822997b9c2e9d02a8f3ce9",
+        "android_client_info": {
+          "package_name": "uz.gita.dima.kitapxanam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607544629324-dgq7gr9vsvbr5i3lrktfov6bi7qv4ql6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh9e50ipXFa5FwrWUtg-aYP6CTQcdBx1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607544629324-dgq7gr9vsvbr5i3lrktfov6bi7qv4ql6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

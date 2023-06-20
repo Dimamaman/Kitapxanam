@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kitapxanam</string>
+
+    <string name="home">home</string>
+    <string name="saved">Saved</string>
+    <string name="explore">Explore</string>
+    <string name="profile">Profile</string>
+    <string name="kitapxanam">Kitapxanam</string>
+    <string name="start_reading">Oqiwdi baslaw</string>
+    <string name="mag_lumat">Mag\'lumat</string>
+</resources>
