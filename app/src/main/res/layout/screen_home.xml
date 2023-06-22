@@ -27,8 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
                 android:fontFamily="@font/sf_pro_semi_bold"
-                android:text="@string/kitapxanam"
                 android:textColor="@color/black"
+                android:text="@string/kitapxanam"
                 android:textSize="24sp" />
 
             <ImageView

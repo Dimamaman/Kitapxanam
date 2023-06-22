@@ -25,12 +25,10 @@ class InfoViewModelImpl @Inject constructor(
         progressLiveData.value = true
         useCase.downloadBook(context, data).onEach { result ->
             result.onSuccess {
-                Log.d("TTT","SUUUUUUUUU")
                 fileDownloadedLiveData.value = it
                 progressLiveData.value = false
             }
             result.onFailure {
-                Log.d("TTT","SOOOOOOOO")
                 errorDownloadLiveData.value = it.message
                 progressLiveData.value = false
             }

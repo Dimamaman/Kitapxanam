@@ -1,17 +1,16 @@
 package uz.gita.dima.kitapxanam.data.model
 
-import uz.gita.dima.kitapxanam.data.local.entity.BookEntity
 import java.io.Serializable
 
 data class BookData(
     var date: String,
     var description: String,
     val id: Long = 0,
-    var image_url:String,
+    var imageUrl:String,
     var isActive: Boolean,
     var klass: String,
     var name: String,
-    var pdf_url:String,
+    var pdfUrl:String,
     var reference: String,
     var year: String,
 ) : Serializable {

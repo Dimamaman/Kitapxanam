@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/homeScreen2">
-
+    app:startDestination="@id/homeScreen">
 
     <fragment
-        android:id="@+id/homeScreen2"
+        android:id="@+id/homeScreen"
         android:name="uz.gita.dima.kitapxanam.presenter.sreens.home.HomeScreen"
         android:label="HomeScreen"
         tools:layout="@layout/screen_home">
@@ -36,4 +35,9 @@
             android:name="book"
             app:argType="uz.gita.dima.kitapxanam.data.model.BookData" />
     </fragment>
+    <fragment
+        android:id="@+id/savedScreen"
+        tools:layout="@layout/screen_saved"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.saved.SavedScreen"
+        android:label="SavedScreen" />
 </navigation>

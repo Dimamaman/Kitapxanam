@@ -55,7 +55,7 @@ class BookAdapter : ListAdapter<BookData, BookAdapter.ViewHolder>(MyDiffUtil) {
 
             Glide
                 .with(root.context)
-                .load(data.image_url)
+                .load(data.imageUrl)
                 .centerCrop()
                 .into(bookImage)
         }
