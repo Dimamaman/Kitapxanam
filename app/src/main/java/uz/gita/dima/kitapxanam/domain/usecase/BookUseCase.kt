@@ -23,5 +23,5 @@ interface BookUseCase {
 
     fun addComment(message: MessageData): Flow<Result<String>>
 
-    fun search(text: String): List<BookData>
+    suspend fun search(text: String): Result<List<BookData>>
 }

@@ -5,6 +5,8 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -26,20 +28,28 @@ class SavedBooksRepositoryImpl @Inject constructor() : SavedBooksRepository {
         try {
             val list = arrayListOf<BookData>()
             val firstCollection = db.collection("MEKTEP").get().await()
-            firstCollection.forEach { firstCollectionData ->
 
+            firstCollection.forEach { firstCollectionData ->
                 val subCollection = firstCollectionData.reference.collection("sabaqliqlar")
                     .get()
                     .await()
 
                 subCollection.forEach { subCollectionData ->
-
-                    Log.d("TTT","Item -> ${subCollectionData.data}")
-
-                    val book = File(context.filesDir, subCollectionData.get("reference").toString() + ".pdf")
-                    Log.d("RRR", "File book -> $book")
+                    val book = File(context.filesDir,  subCollectionData.get("reference") as String + ".pdf")
                     if (book.exists()) {
-                        val temp = subCollectionData.toObject(BookData::class.java)
+                        Log.d("TTT", "File book -> TRUE")
+                        val temp = BookData(
+                            date = subCollectionData.get("date") as String,
+                            description = subCollectionData.get("description") as String,
+                            id = subCollectionData.get("id") as Long,
+                            imageUrl = subCollectionData.get("imageUrl") as String,
+                            isActive = subCollectionData.get("isActive") as Boolean,
+                            klass = subCollectionData.get("klass") as String,
+                            name = subCollectionData.get("name") as String,
+                            pdfUrl = subCollectionData.get("pdfUrl") as String,
+                            reference = subCollectionData.get("reference") as String,
+                            year = subCollectionData.get("year") as String
+                        )
                         list.add(temp)
                     }
                 }

@@ -17,12 +17,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/exploreScreen"
-        android:icon="@drawable/books"
-        android:title="@string/explore"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/profileScreen"
         android:icon="@drawable/user"
         android:title="@string/profile"

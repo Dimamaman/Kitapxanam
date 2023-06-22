@@ -1,8 +1,14 @@
 package uz.gita.dima.kitapxanam.presenter.sreens.home
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import android.view.View
+import android.view.*
+import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,6 +34,63 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        /*requireActivity().addMenuProvider(object : MenuProvider {
+            @SuppressLint("DiscouragedApi")
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.search_menu, menu)
+                val search = menu.findItem(R.id.appSearchBar)
+                search.setIcon(R.drawable.ic_search)
+                val searchView = search.actionView as SearchView
+
+                val searchPlateId = searchView.context.resources.getIdentifier(
+                    "android:id/search_plate",
+                    null,
+                    null
+                )
+                val searchPlate: View = searchView.findViewById(searchPlateId)
+                searchPlate.setBackgroundResource(0)
+                searchView.isIconifiedByDefault = false
+
+                val magId =
+                    searchView.resources.getIdentifier("android:id/search_mag_icon", null, null)
+                val magImage: ImageView = searchView.findViewById<View>(magId) as ImageView
+
+                val linearLayoutSearchView = magImage.parent as ViewGroup
+                linearLayoutSearchView.removeView(magImage)
+
+                searchView.onActionViewExpanded()
+                searchView.queryHint = "Search..."
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        newText?.let {
+//                            viewModel.searchNote(search = it)
+                        }
+
+                        if (newText!!.isEmpty()) {
+                            viewModel.getAllBooks()
+                        }
+                        return true
+                    }
+                })
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+
+        }, viewLifecycleOwner)*/
+
+        binding.search.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_search2)
+        }
+
         viewModel.onProgress.observe(viewLifecycleOwner){
             if (it){
                 binding.progress.visibility = View.VISIBLE

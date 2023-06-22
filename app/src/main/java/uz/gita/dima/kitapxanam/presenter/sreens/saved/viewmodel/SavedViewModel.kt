@@ -9,4 +9,5 @@ interface SavedViewModel {
     val booksData: LiveData<List<BookData>>
 
     fun getAllData(context: Context)
+    fun showDeleteDialog(context: Context, book: BookData)
 }

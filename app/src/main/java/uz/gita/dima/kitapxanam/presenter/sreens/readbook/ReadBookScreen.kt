@@ -19,12 +19,12 @@ import uz.gita.dima.kitapxanam.presenter.sreens.readbook.viewmodel.ReadViewModel
 import java.io.File
 
 @AndroidEntryPoint
-class ReadBookScreen: Fragment(R.layout.screen_read_book), OnPageChangeListener {
+class ReadBookScreen : Fragment(R.layout.screen_read_book), OnPageChangeListener {
 
     private val binding by viewBinding(ScreenReadBookBinding::bind)
     private val args: ReadBookScreenArgs by navArgs()
-    var pageNumber= 0
-    var totalPage= 0
+    var pageNumber = 0
+    var totalPage = 0
 
     private val viewModel: ReadViewModel by viewModels<ReadViewModelImpl>()
 
@@ -64,7 +64,8 @@ class ReadBookScreen: Fragment(R.layout.screen_read_book), OnPageChangeListener 
     }
 
     private fun openBook() {
-        binding.pdfView.fromFile(File(requireContext().filesDir, "${args.book.reference}.pdf")).load()
+        binding.pdfView.fromFile(File(requireContext().filesDir, "${args.book.reference}.pdf"))
+            .load()
     }
 
     override fun onPause() {

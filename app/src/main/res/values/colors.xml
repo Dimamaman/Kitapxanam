@@ -18,5 +18,8 @@
     <color name="light_primary">#7A34C1</color>
 
     <color name="navigationDrawerBackGround">#2B2B2B</color>
+    <color name="window_background">@color/gray_50</color>
+    <color name="gray_50">#F5F9FE</color>
+    <color name="primary_500">#3461FD</color>
 
 </resources>

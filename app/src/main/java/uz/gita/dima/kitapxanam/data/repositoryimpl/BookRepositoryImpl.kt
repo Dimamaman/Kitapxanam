@@ -1,12 +1,12 @@
 package uz.gita.dima.kitapxanam.data.repositoryimpl
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import uz.gita.dima.kitapxanam.data.local.dao.BookDao
 import uz.gita.dima.kitapxanam.data.model.BookData
@@ -121,47 +121,47 @@ class BookRepositoryImpl @Inject constructor(
         return false
     }
 
-//    override fun getNewBooks(): List<BookData> {
-//        val curentDay = Calendar.getInstance().time.toString("dd").toInt()
-//        val curentMonth = Calendar.getInstance().time.toString("MM").toInt()
-//
-//        val result = arrayListOf<BookData>()
-//        val lst = getFullBookList()
-//        if (!lst.isNullOrEmpty()) {
-//            lst.forEach { book ->
-//                val day = book.date.subSequence(0, 2).toString().toInt()
-//                val month = book.date.subSequence(3, 5).toString().toInt()
-//                if ((day - curentDay) <= 5 && (month - curentMonth) == 0) {
-//                    result.add(book)
-//                }
-//            }
-//        }
-//
-//        return result
-//    }
+    /*override fun getNewBooks(): List<BookData> {
+        val curentDay = Calendar.getInstance().time.toString("dd").toInt()
+        val curentMonth = Calendar.getInstance().time.toString("MM").toInt()
 
-//    override fun gerRecommendBooks(): List<BookData> {
-//        val result = arrayListOf<BookData>()
-//        val lst = getFullBookList()
-//        lst.sortedBy {
-//            it.id
-//        }
-//
-//        for (i in 0 until lst.size / 4) {
-//            result.add(lst[i])
-//        }
-//        return result
-//    }
+        val result = arrayListOf<BookData>()
+        val lst = getFullBookList()
+        if (!lst.isNullOrEmpty()) {
+            lst.forEach { book ->
+                val day = book.date.subSequence(0, 2).toString().toInt()
+                val month = book.date.subSequence(3, 5).toString().toInt()
+                if ((day - curentDay) <= 5 && (month - curentMonth) == 0) {
+                    result.add(book)
+                }
+            }
+        }
 
-//    override fun getFullBookList(): List<BookData> {
-//        val result = arrayListOf<BookData>()
-//        dao.getBooks().forEach {
-//            result.add(it.toBookData())
-//        }
-//        return result.sortedBy {
-//            it.kurs
-//        }
-//    }
+        return result
+    }
+
+    override fun gerRecommendBooks(): List<BookData> {
+        val result = arrayListOf<BookData>()
+        val lst = getFullBookList()
+        lst.sortedBy {
+            it.id
+        }
+
+        for (i in 0 until lst.size / 4) {
+            result.add(lst[i])
+        }
+        return result
+    }
+
+    override fun getFullBookList(): List<BookData> {
+        val result = arrayListOf<BookData>()
+        dao.getBooks().forEach {
+            result.add(it.toBookData())
+        }
+        return result.sortedBy {
+            it.kurs
+        }
+    }*/
 
     override fun getProfileInformation(): Flow<Result<ProfileData>> = callbackFlow {
         fireStore.collection("profil").document("info").get()
@@ -195,11 +195,55 @@ class BookRepositoryImpl @Inject constructor(
         awaitClose()
     }
 
-    override fun getLikeBooks(like: String): List<BookData> {
-        val list = arrayListOf<BookData>()
-        dao.searchBooks(like).forEach {
-//            list.add(it.toBookData())
+    override suspend fun searchBooks(like: String): Result<List<BookData>>  {
+        try {
+            val querySnapshot = fireStore.collection("MEKTEP").get().await()
+
+            if (querySnapshot.isEmpty) return Result.failure(Exception("Empty documents"))
+
+            val result = arrayListOf<BookData>()
+            querySnapshot.documents.forEach { snapshot ->
+                val list = arrayListOf<BookData>()
+
+                snapshot.reference.collection("sabaqliqlar").get()
+                    .addOnSuccessListener { querySnapshot ->
+                        querySnapshot.documents.forEach { book ->
+                            val newBook = BookData(
+                                book.get("date") as String,
+                                book.get("description") as String,
+                                book.get("id") as Long,
+                                book.get("imageUrl") as String,
+                                book.get("isActive") as Boolean,
+                                book.get("klass") as String,
+                                book.get("name") as String,
+                                book.get("pdfUrl") as String,
+                                book.get("reference") as String,
+                                book.get("year") as String
+                            )
+                            if (newBook.klass.contains(like, ignoreCase = true) || newBook.name.contains(like, ignoreCase = true) || newBook.year.contains(like, ignoreCase = true)) {
+                                list.add(newBook)
+                            }
+
+                            /*if (newBook.isActive) {
+                                list.add(newBook)
+                                val ent = newBook.toEntity(title, icon)
+                                if (dao.getBook(ent.id) == null) {
+                                    if (isBookNew(newBook))
+                                        ent.isnewbookread = 1
+                                    dao.addBook(ent)
+                                } else {
+                                    ent.isnewbookread = dao.getBook(ent.id).isnewbookread
+                                    dao.updateBook(ent)
+                                }
+                            }*/
+                        }
+                    }.await()
+                result.addAll(list)
+            }
+            return Result.success(result)
+
+        } catch (e: Exception) {
+            return Result.failure(e)
         }
-        return list
     }
 }

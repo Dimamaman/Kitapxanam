@@ -30,6 +30,6 @@ class BookUseCaseImpl @Inject constructor(
     override fun addComment(message: MessageData): Flow<Result<String>> =
         repository.addComment(message)
 
-    override fun search(text: String): List<BookData> = repository.getLikeBooks(text)
+    override suspend fun search(text: String): Result<List<BookData>> = repository.searchBooks(text)
 
 }

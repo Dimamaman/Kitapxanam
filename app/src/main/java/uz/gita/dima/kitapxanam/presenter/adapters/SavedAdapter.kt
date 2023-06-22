@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.gita.dima.kitapxanam.data.model.BookData
 import uz.gita.dima.kitapxanam.databinding.ItemBookBinding
+import uz.gita.dima.kitapxanam.databinding.SavedItemBinding
 import javax.inject.Inject
 
 class SavedAdapter @Inject constructor() :
@@ -25,11 +26,13 @@ class SavedAdapter @Inject constructor() :
     }
 
 
-    inner class FavoriteViewHolder(private val binding: ItemBookBinding) :
+    inner class FavoriteViewHolder(private val binding: SavedItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bookData: BookData) {
             binding.apply {
                 txtTitle.text = bookData.name
+                txtYear.text = bookData.year
+                txtKlass.text = bookData.klass
                 Glide.with(itemView.context).load(bookData.imageUrl).into(bookImage)
             }
             binding.root.setOnClickListener {
@@ -57,7 +60,7 @@ class SavedAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder =
         FavoriteViewHolder(
-            ItemBookBinding.inflate(
+            SavedItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

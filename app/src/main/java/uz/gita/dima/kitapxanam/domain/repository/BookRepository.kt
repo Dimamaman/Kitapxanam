@@ -23,6 +23,6 @@ interface BookRepository {
 
     fun addComment(message: MessageData): Flow<Result<String>>
 
-    fun getLikeBooks(like: String): List<BookData>
+    suspend fun searchBooks(like: String): Result<List<BookData>>
 
 }
