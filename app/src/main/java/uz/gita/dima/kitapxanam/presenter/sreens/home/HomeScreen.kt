@@ -3,6 +3,7 @@ package uz.gita.dima.kitapxanam.presenter.sreens.home
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.SearchView
@@ -11,15 +12,19 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.dima.kitapxanam.R
+import uz.gita.dima.kitapxanam.data.local.sharedPref.SharedPref
+import uz.gita.dima.kitapxanam.data.model.BookData
 import uz.gita.dima.kitapxanam.databinding.ScreenHomeBinding
 import uz.gita.dima.kitapxanam.presenter.adapters.TypeAdapter
 import uz.gita.dima.kitapxanam.presenter.sreens.home.viewmodel.HomeViewModel
 import uz.gita.dima.kitapxanam.presenter.sreens.home.viewmodel.HomeViewModelImpl
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeScreen : Fragment(R.layout.screen_home) {
@@ -27,14 +32,27 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     private val viewModel: HomeViewModel by viewModels<HomeViewModelImpl>()
 
     private val adapter: TypeAdapter = TypeAdapter()
+
+    lateinit var bookData: BookData
+
+    @Inject
+    lateinit var sharedPref: SharedPref
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getAllBooks()
     }
-
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.getAllBooks()
+
+        if (sharedPref.bookName!!.isEmpty()) {
+            binding.constraint.visibility = View.GONE
+        } else {
+            binding.constraint.visibility = View.VISIBLE
+            binding.tvBookName.text = sharedPref.bookName
+            binding.klassName.text = sharedPref.klass
+            binding.tvBookPage.text = "Bet : ${sharedPref.savedPage}"
+        }
 
         /*requireActivity().addMenuProvider(object : MenuProvider {
             @SuppressLint("DiscouragedApi")
@@ -92,6 +110,14 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             findNavController().navigate(R.id.action_homeScreen_to_search2)
         }
 
+        viewModel.book.observe(viewLifecycleOwner, book)
+
+        binding.constraint.setOnClickListener {
+            val action = HomeScreenDirections.actionHomeScreenToReadBookScreen(bookData)
+            findNavController().navigate(action)
+        }
+
+
         viewModel.onProgress.observe(viewLifecycleOwner){
             if (it){
                 binding.progress.visibility = View.VISIBLE
@@ -114,7 +140,6 @@ class HomeScreen : Fragment(R.layout.screen_home) {
 
         binding.notifications.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreen_to_newBooks)
-//            findNavController().navigate(R.id.action_homeScreen_to_newBooksList)
         }
         adapter.setBookClickListener {
             val action = HomeScreenDirections.actionHomeScreen2ToInfoScreen(it)
@@ -134,6 +159,9 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         viewModel.recommendedBooksLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+    }
 
+    private val book = Observer<BookData> {
+        bookData = it
     }
 }

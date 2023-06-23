@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view_layout"
         android:layout_width="match_parent"
@@ -57,6 +58,66 @@
                 app:tint="@color/black" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_products_list_item"
+        android:padding="8dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="4dp"
+        app:layout_constraintTop_toBottomOf="@id/view_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/klass_name"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:background="@drawable/bg_search_view"
+            android:padding="6dp"
+            tools:text="4"
+            android:textSize="14sp"
+            android:gravity="center_vertical|center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_book_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sf_pro_semi_bold"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_book_page"
+            app:layout_constraintStart_toEndOf="@id/klass_name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Matematika" />
+
+        <TextView
+            android:id="@+id/tv_book_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/klass_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_book_name"
+            tools:text="7 - klass" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/wall_clock"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recomendation_recycler_view"
@@ -68,7 +129,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_layout"
+        app:layout_constraintTop_toBottomOf="@+id/constraint"
         tools:listitem="@layout/item_container" />
 
     <androidx.appcompat.widget.LinearLayoutCompat

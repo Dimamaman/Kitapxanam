@@ -44,10 +44,6 @@ class InfoScreen : Fragment(R.layout.screen_info) {
                 binding.progress.visibility = View.VISIBLE
             } else {
                 binding.progress.visibility = View.GONE
-//                binding.downloadBtn.animate()
-//                    .translationX(500f)
-//                    .setDuration(2000)
-//                    .start()
             }
         }
         binding.imgShare.setOnClickListener {
@@ -126,11 +122,16 @@ class InfoScreen : Fragment(R.layout.screen_info) {
 
             if (File(context?.filesDir, "${args.book.reference}.pdf").exists()) {
                 startReadingText.visibility = View.VISIBLE
-//                downloadBtn.isClickable = false
-//                binding.downloadBtn.animate()
-//                    .translationX(500f)
-//                    .setDuration(0)
-//                    .start()
+
+                binding.imgShare.animate()
+                    .translationX(100f)
+                    .withEndAction {
+                        binding.imgShare.animate()
+                            .translationX(-20f)
+                            .setDuration(2000)
+                            .start()
+                    }
+                    .start()
 
                 imgShare.visibility = View.VISIBLE
             } else {

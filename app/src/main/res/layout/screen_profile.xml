@@ -221,11 +221,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_gravity="bottom"
-                android:layout_marginHorizontal="8dp"
                 android:layout_marginBottom="316dp"
                 android:background="@drawable/bg_to_read_btn"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="8dp">
 
@@ -234,7 +232,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="@string/jiberiw"

@@ -18,3 +18,10 @@ fun log(message: String) {
 fun ViewGroup.inflate(resId: Int): View {
     return LayoutInflater.from(this.context).inflate(resId, this, false)
 }
+
+object Constant {
+    const val SHARED_PREF = "shared_pref"
+    const val BOOK_NAME = "book_name"
+    const val SAVED_PAGE = "saved_page"
+    const val TOTAL_PAGE = "total_page"
+}

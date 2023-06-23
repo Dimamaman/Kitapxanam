@@ -33,12 +33,12 @@ class SearchAdapter :
         fun onBind() {
             binding.apply {
                 val data = getItem(adapterPosition)
-                Glide.with(binding.imageProduct.context)
+                Glide.with(binding.klassName.context)
                     .load(data.imageUrl)
                     .placeholder(R.drawable.open_book)
-                    .into(binding.imageProduct)
+                    .into(binding.klassName)
                 tvBookName.text = data.name
-                tvBookKlass.text = data.klass
+                tvBookPage.text = data.klass
                 constraint.animation = AnimationUtils.loadAnimation(binding.root.context, R.anim.item_animation)
             }
         }

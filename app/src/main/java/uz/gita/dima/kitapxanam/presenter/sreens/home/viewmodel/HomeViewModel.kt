@@ -1,6 +1,7 @@
 package uz.gita.dima.kitapxanam.presenter.sreens.home.viewmodel
 
 import androidx.lifecycle.LiveData
+import uz.gita.dima.kitapxanam.data.model.BookData
 import uz.gita.dima.kitapxanam.data.model.TypeData
 
 interface HomeViewModel {
@@ -12,4 +13,5 @@ interface HomeViewModel {
     val onProgress:LiveData<Boolean>
     val onException:LiveData<Boolean>
     val onExceptionString:LiveData<String>
+    val book: LiveData<BookData>
 }

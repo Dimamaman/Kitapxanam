@@ -33,23 +33,25 @@ class SavedScreen: Fragment(R.layout.screen_saved) {
 
         viewModel.getAllData(requireContext())
 
-        savedAdapter.setClickListener {
-            Log.d("AAA", it.toString())
-//            val action = FavoriteFragmentDirections.actionFavoriteFragmentToReadBookFragment(0,it.page.toInt(),it.bookName)
-//            findNavController().navigate(action)
+        viewModel.progress.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.apply {
+                    progress.visibility = View.VISIBLE
+                    imgNoBooks.visibility = View.GONE
+                    txtNoBookTitle.visibility = View.GONE
+                }
+            } else {
+                binding.progress.visibility = View.GONE
+            }
+        }
 
+        savedAdapter.setClickListener {
             val action = SavedScreenDirections.actionSavedScreenToReadBookScreen(it)
             findNavController().navigate(action)
-
-//            parentFragment?.findNavController(requireActivity(),R.id.action_favoriteFragment_to_readBookFragment)
-
-//            Navigation.findNavController(requireActivity(),R.id.action_favoriteFragment_to_readBookFragment)
-//            (FragmentComponentManager.findActivity(view.context) as Activity).findNavController(R.id.action_favoriteFragment_to_readBookFragment)
         }
 
         savedAdapter.setDeleteClickListener {
             viewModel.showDeleteDialog(requireContext(),it)
-//            savedAdapter.notifyDataSetChanged()
         }
 
         binding.apply {
@@ -65,6 +67,7 @@ class SavedScreen: Fragment(R.layout.screen_saved) {
                 binding.apply {
                     imgNoBooks.visibility = View.VISIBLE
                     txtNoBookTitle.visibility = View.VISIBLE
+                    progress.visibility = View.GONE
                 }
             } else {
                 binding.apply {

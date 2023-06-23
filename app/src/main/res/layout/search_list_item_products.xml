@@ -11,7 +11,7 @@
     android:padding="8dp">
 
     <ImageView
-        android:id="@+id/image_product"
+        android:id="@+id/klass_name"
         android:layout_width="68dp"
         android:layout_height="68dp"
         android:background="@drawable/bg_search_view"
@@ -30,19 +30,21 @@
         android:fontFamily="@font/sf_pro_semi_bold"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_book_klass"
-        app:layout_constraintStart_toEndOf="@id/image_product"
+        app:layout_constraintBottom_toTopOf="@id/tv_book_page"
+        app:layout_constraintStart_toEndOf="@id/klass_name"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Matematika" />
 
     <TextView
-        android:id="@+id/tv_book_klass"
+        android:id="@+id/tv_book_page"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textColor="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_product"
+        app:layout_constraintStart_toEndOf="@id/klass_name"
         app:layout_constraintTop_toBottomOf="@id/tv_book_name"
         tools:text="7 - klass" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

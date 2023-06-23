@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,14 +31,17 @@ class SavedViewModelImpl @Inject constructor(
 ) : ViewModel(), SavedViewModel {
     override val errorData = MutableLiveData<String>()
     override val booksData = MutableLiveData<List<BookData>>()
+    override val progress = MutableLiveData<Boolean>()
 
     override fun getAllData(context: Context) {
+        progress.value = true
         savedBooksUseCase.getSavedBooks(context).onEach {
             it.onSuccess {
-
+                progress.value = false
                 booksData.value = it
             }
             it.onFailure {
+                progress.value = false
                 Log.d("RRR", "Error -> ${it.message}")
                 errorData.value = it.message
             }
@@ -62,12 +66,14 @@ class SavedViewModelImpl @Inject constructor(
 
         yesBtn.setOnClickListener {
             if (deleted){
+                progress.value = true
                 savedBooksUseCase.getSavedBooks(context).onEach {
                     it.onSuccess {
-
+                        progress.value = false
                         booksData.value = it
                     }
                     it.onFailure {
+                        progress.value = false
                         Log.d("RRR", "Error -> ${it.message}")
                         errorData.value = it.message
                     }

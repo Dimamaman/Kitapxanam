@@ -95,7 +95,7 @@
                         android:src="@drawable/share"
                         android:layout_margin="8dp"
                         android:clickable="true"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:focusable="true"
                         android:background="?android:selectableItemBackgroundBorderless"
                         android:layout_alignParentEnd="true"
@@ -103,7 +103,6 @@
                         android:paddingHorizontal="5dp"/>
 
                 </RelativeLayout>
-
 
             </androidx.appcompat.widget.Toolbar>
 
