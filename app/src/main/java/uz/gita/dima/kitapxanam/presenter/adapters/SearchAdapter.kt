@@ -1,6 +1,7 @@
 package uz.gita.dima.kitapxanam.presenter.adapters
 
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +39,7 @@ class SearchAdapter :
                     .into(binding.imageProduct)
                 tvBookName.text = data.name
                 tvBookKlass.text = data.klass
+                constraint.animation = AnimationUtils.loadAnimation(binding.root.context, R.anim.item_animation)
             }
         }
 

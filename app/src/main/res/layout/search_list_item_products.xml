@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
+    android:id="@+id/constraint"
     android:background="@drawable/bg_products_list_item"
     android:padding="8dp">
 

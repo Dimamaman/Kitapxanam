@@ -13,11 +13,14 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import uz.gita.dima.kitapxanam.BuildConfig
 import uz.gita.dima.kitapxanam.R
 import uz.gita.dima.kitapxanam.databinding.ScreenInfoBinding
@@ -38,15 +41,13 @@ class InfoScreen : Fragment(R.layout.screen_info) {
 
         viewModel.progressLiveData.observe(viewLifecycleOwner) {
             if (it) {
-                Toast.makeText(context, "Juklenip atir⚡...", Toast.LENGTH_SHORT).show()
                 binding.progress.visibility = View.VISIBLE
             } else {
-                Toast.makeText(context, "Juklendi🌩️...", Toast.LENGTH_SHORT).show()
-                binding.progress.visibility = View.INVISIBLE
-                binding.downloadBtn.animate()
-                    .translationX(500f)
-                    .setDuration(2000)
-                    .start()
+                binding.progress.visibility = View.GONE
+//                binding.downloadBtn.animate()
+//                    .translationX(500f)
+//                    .setDuration(2000)
+//                    .start()
             }
         }
         binding.imgShare.setOnClickListener {
@@ -77,21 +78,30 @@ class InfoScreen : Fragment(R.layout.screen_info) {
 //            startActivity(shareIntent)
 
 
-            val pdfFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), File(context?.filesDir, "${args.book.reference}.pdf").path)
+            val pdfFile = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                File(context?.filesDir, "${args.book.reference}.pdf").path
+            )
 
             if (pdfFile.exists()) {
                 // Do something with the file
-                Log.d("TTTT","DDDDDDD AWA")
+                Log.d("TTTT", "DDDDDDD AWA")
             } else {
                 // File does not exist
-                Log.d("TTTT","YYYYYAAAQQ   ${File(context?.filesDir, "${args.book.reference}.pdf").path} ")
+                Log.d(
+                    "TTTT",
+                    "YYYYYAAAQQ   ${File(context?.filesDir, "${args.book.reference}.pdf").path} "
+                )
             }
 
             val intent = Intent()
             val aName = intent.getStringExtra("iName")
             val shareIntent = Intent(Intent.ACTION_SEND)
             val file =
-                File(requireActivity().getExternalFilesDir("${args.book.reference}.pdf")?.absolutePath.toString(), "$aName")
+                File(
+                    requireActivity().getExternalFilesDir("${args.book.reference}.pdf")?.absolutePath.toString(),
+                    "$aName"
+                )
             val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 FileProvider.getUriForFile(
                     requireContext(),
@@ -115,18 +125,16 @@ class InfoScreen : Fragment(R.layout.screen_info) {
             val data = args.book
 
             if (File(context?.filesDir, "${args.book.reference}.pdf").exists()) {
-                downloadBtn.setImageResource(R.drawable.done)
-                linearLayout.visibility = View.VISIBLE
-                downloadBtn.isClickable = false
-                binding.downloadBtn.animate()
-                    .translationX(500f)
-                    .setDuration(0)
-                    .start()
+                startReadingText.visibility = View.VISIBLE
+//                downloadBtn.isClickable = false
+//                binding.downloadBtn.animate()
+//                    .translationX(500f)
+//                    .setDuration(0)
+//                    .start()
 
                 imgShare.visibility = View.VISIBLE
             } else {
-                linearLayout.visibility = View.GONE
-                downloadBtn.isClickable = true
+                juklewdiBaslaw.visibility = View.VISIBLE
             }
 
             txtTitle.text = data.name
@@ -144,26 +152,39 @@ class InfoScreen : Fragment(R.layout.screen_info) {
                 .load(data.imageUrl)
                 .into(bookImage)
 
-            downloadBtn.setOnClickListener {
-                viewModel.downloadBook(requireContext(), data)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.readyOpen.collectLatest { ready ->
+                    binding.linearLayout.setOnClickListener {
+                        viewModel.downloadBook(requireContext(), data)
+                        if (ready) {
+                            val action = InfoScreenDirections.actionInfoScreenToReadBookScreen(data)
+                            findNavController().navigate(action)
+                        }
+                    }
+                }
             }
 
 
             linearLayout.setOnClickListener {
-                val action = InfoScreenDirections.actionInfoScreenToReadBookScreen(data)
-                findNavController().navigate(action)
+                juklewdiBaslaw.text = ""
+                binding.progress.visibility = View.VISIBLE
+                viewModel.downloadBook(requireContext(), data)
             }
+
+
             btnBack.setOnClickListener {
                 findNavController().navigateUp()
             }
 
             viewModel.fileDownloadedLiveData.observe(viewLifecycleOwner) {
-                downloadBtn.setImageResource(R.drawable.done)
+                binding.progress.visibility = View.GONE
+                binding.startReadingText.visibility = View.VISIBLE
                 imgShare.visibility = View.VISIBLE
-                linearLayout.visibility = View.VISIBLE
             }
 
             viewModel.errorDownloadLiveData.observe(viewLifecycleOwner) {
+                binding.progress.visibility = View.GONE
+                binding.juklewdiBaslaw.visibility = View.VISIBLE
                 Toast.makeText(requireContext(), "Error!", Toast.LENGTH_SHORT).show()
             }
         }

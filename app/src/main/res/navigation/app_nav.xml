@@ -12,10 +12,29 @@
         tools:layout="@layout/screen_home">
         <action
             android:id="@+id/action_homeScreen2_to_infoScreen"
-            app:destination="@id/infoScreen" />
+            app:destination="@id/infoScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
         <action
             android:id="@+id/action_homeScreen_to_search2"
-            app:destination="@id/search2" />
+            app:destination="@id/search2"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_homeScreen_to_subCollectionList"
+            app:destination="@id/subCollectionList"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/infoScreen"
@@ -27,7 +46,12 @@
             app:argType="uz.gita.dima.kitapxanam.data.model.BookData" />
         <action
             android:id="@+id/action_infoScreen_to_readBookScreen"
-            app:destination="@id/readBookScreen" />
+            app:destination="@id/readBookScreen"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/readBookScreen"
@@ -45,7 +69,11 @@
         android:label="SavedScreen" >
         <action
             android:id="@+id/action_savedScreen_to_readBookScreen"
-            app:destination="@id/readBookScreen" />
+            app:destination="@id/readBookScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/search2"
@@ -54,6 +82,33 @@
         android:label="Search" >
         <action
             android:id="@+id/action_search2_to_infoScreen"
-            app:destination="@id/infoScreen" />
+            app:destination="@id/infoScreen"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/subCollectionList"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.subcollectionList.SubCollectionList"
+        android:label="SubCollectionList"
+        tools:layout="@layout/screen_subcollection_list">
+        <action
+            android:id="@+id/action_subCollectionList_to_infoScreen"
+            app:destination="@id/infoScreen"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="typed_data"
+            app:argType="uz.gita.dima.kitapxanam.data.model.TypeData" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.profile.Profile"
+        android:label="Profile"
+        tools:layout="@layout/screen_profile"/>
 </navigation>

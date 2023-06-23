@@ -2,10 +2,12 @@ package uz.gita.dima.kitapxanam.presenter.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import uz.gita.dima.kitapxanam.R
 import uz.gita.dima.kitapxanam.data.model.BookData
 import uz.gita.dima.kitapxanam.databinding.ItemBookBinding
 import uz.gita.dima.kitapxanam.databinding.SavedItemBinding
@@ -35,6 +37,9 @@ class SavedAdapter @Inject constructor() :
                 txtKlass.text = bookData.klass
                 Glide.with(itemView.context).load(bookData.imageUrl).into(bookImage)
             }
+
+            binding.root.animation = AnimationUtils.loadAnimation(binding.root.context, R.anim.item_animation)
+
             binding.root.setOnClickListener {
                 clickListener?.invoke(bookData)
             }

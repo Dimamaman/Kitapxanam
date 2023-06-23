@@ -14,6 +14,9 @@
     <color name="shimmer1">#1A51267D</color>
     <color name="dark_grey">#818C99</color>
     <color name="light_grey">#EBEDF0</color>
+    <color name="light_grey2">#FAFAFA</color>
+
+    <color name="light_grey3">#FDFDFD</color>
 
     <color name="light_primary">#7A34C1</color>
 

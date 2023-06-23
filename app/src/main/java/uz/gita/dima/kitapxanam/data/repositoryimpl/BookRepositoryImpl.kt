@@ -164,16 +164,16 @@ class BookRepositoryImpl @Inject constructor(
     }*/
 
     override fun getProfileInformation(): Flow<Result<ProfileData>> = callbackFlow {
-        fireStore.collection("profil").document("info").get()
+        fireStore.collection("profile").document("info").get()
             .addOnSuccessListener {
-                val profil = ProfileData(
+                val profile = ProfileData(
                     it.get("title") as String,
                     it.get("description") as String,
                     it.get("telegram") as String,
                     it.get("instagram") as String,
                     it.get("image") as String
                 )
-                trySend(Result.success(profil))
+                trySend(Result.success(profile))
             }
             .addOnFailureListener {
                 trySend(Result.failure(it))
@@ -188,7 +188,7 @@ class BookRepositoryImpl @Inject constructor(
             "name" to message.name
         )
         fireStore.collection("comment").add(myMessage).addOnSuccessListener {
-            trySend(Result.success("Xabaringiz jo'natildi..."))
+            trySend(Result.success("Xabarin'iz jiberildi..."))
         }.addOnFailureListener {
             trySend(Result.failure(it))
         }

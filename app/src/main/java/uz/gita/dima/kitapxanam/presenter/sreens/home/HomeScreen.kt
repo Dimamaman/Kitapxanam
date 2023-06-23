@@ -33,6 +33,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         /*requireActivity().addMenuProvider(object : MenuProvider {
@@ -107,7 +108,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         }
         viewModel.onExceptionString.observe(viewLifecycleOwner){
             binding.imgError.setImageResource(R.drawable.nointernet)
-            binding.txtError.text = "Server yoki internetga ulanish xatosi :("
+            binding.txtError.text = "Server yaki internetge baylanisda qa'telik"
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
@@ -120,8 +121,8 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         }
 
         adapter.setGoToClickListener {
-//            val action = HomeScreenDirections.actionHomeScreenToScreenList(it)
-//            findNavController().navigate(action)
+            val action = HomeScreenDirections.actionHomeScreenToSubCollectionList(it)
+            findNavController().navigate(action)
         }
 
         binding.recomendationRecyclerView.apply {
