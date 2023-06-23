@@ -35,6 +35,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_homeScreen_to_newBooks"
+            app:destination="@id/newBooks"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/infoScreen"
@@ -111,4 +120,9 @@
         android:name="uz.gita.dima.kitapxanam.presenter.sreens.profile.Profile"
         android:label="Profile"
         tools:layout="@layout/screen_profile"/>
+    <fragment
+        android:id="@+id/newBooks"
+        tools:layout="@layout/screen_new_books"
+        android:name="uz.gita.dima.kitapxanam.presenter.sreens.newbooks.NewBooks"
+        android:label="NewBooks" />
 </navigation>

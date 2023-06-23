@@ -149,6 +149,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/sf_pro_semi_bold"
                 android:textSize="18sp"
+                android:textAlignment="center"
                 android:paddingHorizontal="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/view2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +193,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/shape_editdescription"
                 android:ems="10"
-                android:hint="Pikrin'izdi usi jerde jazip qaldirin'..."
+                android:hint="Pikirińizdi usı jerde jazıp qaldırıń..."
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:gravity="top|start"
@@ -219,12 +220,12 @@
                 android:id="@+id/profile_send_message"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:paddingHorizontal="8dp"
+                android:layout_gravity="bottom"
                 android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="316dp"
                 android:background="@drawable/bg_to_read_btn"
                 android:gravity="center_vertical"
-                android:layout_gravity="bottom"
+                android:paddingHorizontal="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:layout_editor_absoluteX="8dp">
 
@@ -232,35 +233,35 @@
                     android:id="@+id/jiberiw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="@string/jiberiw"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <ProgressBar
                     android:id="@id/progress"
                     android:layout_width="40dp"
-                    android:visibility="gone"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:layout_height="40dp"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/jiberildi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:layout_gravity="center"
                     android:fontFamily="@font/sf_pro_semi_bold"
                     android:text="@string/jiberildi"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:visibility="gone" />
             </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

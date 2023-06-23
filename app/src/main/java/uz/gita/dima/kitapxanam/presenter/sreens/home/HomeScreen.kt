@@ -113,6 +113,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         }
 
         binding.notifications.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_newBooks)
 //            findNavController().navigate(R.id.action_homeScreen_to_newBooksList)
         }
         adapter.setBookClickListener {

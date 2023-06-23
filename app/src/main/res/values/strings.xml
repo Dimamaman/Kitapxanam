@@ -7,7 +7,7 @@
     <string name="profile">Profile</string>
     <string name="kitapxanam">Kitapxanam</string>
     <string name="start_reading">Oqiwdi baslaw</string>
-    <string name="usinislar">Bizge qandayda bir pikir yaki usinislarin\'iz bolsa jazip qaldirin\'...</string>
+    <string name="usinislar">Bizge qandayda bir pikir yaki usınıslarıńız bolsa jazıp qaldırıń.</string>
     <string name="mag_lumat">Mag\'lumat</string>
 
 
@@ -48,4 +48,6 @@
     <string name="link">Nomer yaki telegram @link</string>
     <string name="jiberiw">Jiberiw</string>
     <string name="jiberildi">Jiberildi</string>
+    <string name="taza_kitaplar">Taza kitaplar</string>
+    <string name="taza_kitaplar_ele_qosilmadi">Taza kitaplar ele qosilmadi</string>
 </resources>

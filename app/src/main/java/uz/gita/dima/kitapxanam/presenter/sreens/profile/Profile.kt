@@ -1,5 +1,6 @@
 package uz.gita.dima.kitapxanam.presenter.sreens.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -13,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -33,6 +35,7 @@ class Profile : Fragment(R.layout.screen_profile) {
         viewModel.getOwnerInfo()
     }
 
+    @SuppressLint("ShowToast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,9 +52,6 @@ class Profile : Fragment(R.layout.screen_profile) {
                 }, 1000)
             }
         }
-
-
-
 
         viewModel.onException.observe(viewLifecycleOwner) {
             if (it) {
@@ -82,6 +82,7 @@ class Profile : Fragment(R.layout.screen_profile) {
                     val uri = Uri.parse(data.instagram)
                     val intent = Intent(Intent.ACTION_VIEW, uri)
                     startActivity(intent)
+//                    Snackbar.make(view, "Instagram endi ashiladi", Snackbar.LENGTH_LONG)
                 }
 
                 profileSendMessage.setOnClickListener {

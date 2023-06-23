@@ -258,6 +258,8 @@
             android:id="@+id/txt_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20sp"
             android:text="Amid the ongoing deadly power struggle between the top military leaders of Sudan, evacuations have begun, including as part of India’s Operation Kaveri, which has helped more than 3,500 Indian citizens living in the country. Raghuveer Sharma is one of them. He gave UN News a first-hand account of the tragic situation unfolding in Sudan.The World Health Organization (WHO) declared an end to the COVID-19 global public health emergency on 3 May 2023, following more than three years of crisis, and slow recovery – although the virus continues to kill and mutate. UN photographers across the world have captured moments of agony, innovation, and human endurance throughout the pandemic, which has killed nearly seven million people, and infected over 765 million.The number of internally displaced (IDPs) in Sudan has more than doubled in just the last week, since armed clashes erupted between rival militaries in multiple cities across Sudan, the International Organization for Migration (IOM) said on Tuesday.The values of human dignity and freedom, enshrined in the UN’s founding Charter in 1945, have never been so under threat, warned the Secretary-General on Tuesday, delivering a wide-ranging speech in Spain after receiving the Carlos V European Award."/>
 
 
