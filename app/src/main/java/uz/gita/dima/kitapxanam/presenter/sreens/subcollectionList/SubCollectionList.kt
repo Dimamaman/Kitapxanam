@@ -24,7 +24,7 @@ class SubCollectionList : Fragment(R.layout.screen_subcollection_list) {
         super.onViewCreated(view, savedInstanceState)
         binding.recycler.adapter = adapter
 
-        binding.txtSubjectName.text = args.typedData.title.substring(0,7)
+        binding.txtSubjectName.text = args.typedData.title.substringBefore(".")
         adapter.submitList(args.typedData.list)
 
         adapter.setItemClickListener {
