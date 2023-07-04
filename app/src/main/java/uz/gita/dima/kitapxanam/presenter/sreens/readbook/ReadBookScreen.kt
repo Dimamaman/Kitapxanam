@@ -86,7 +86,7 @@ class ReadBookScreen : Fragment(R.layout.screen_read_book), OnPageChangeListener
         viewModel.saveBookAsRead(args.book, binding.pdfView.currentPage)
 
         sharedPref.setPreviousBook(args.book.name, pageNumber)
-
+        Log.d("RRR","${sharedPref.getPreviousBook(args.book.name)}")
         sharedPref.totalPage = totalPage
         sharedPref.bookName = args.book.name
         sharedPref.savedPage = pageNumber

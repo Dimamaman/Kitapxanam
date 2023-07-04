@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.widget.textChanges
 import uz.gita.dima.kitapxanam.R
+import uz.gita.dima.kitapxanam.data.model.BookData
 import uz.gita.dima.kitapxanam.databinding.ScreenSearchBinding
 import uz.gita.dima.kitapxanam.presenter.adapters.SearchAdapter
 import uz.gita.dima.kitapxanam.presenter.sreens.search.viewmodel.SearchViewModel
@@ -32,9 +34,20 @@ class Search : Fragment(R.layout.screen_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.listSearchBooks.adapter = adapter
 
-        viewModel.bookSharedFlow.onEach {
-            adapter.submitList(it)
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+//        viewModel.bookSharedFlow.onEach {
+//            if (it.isEmpty()) {
+//                binding.apply {
+//                    empty.visibility = View.VISIBLE
+//                    listSearchBooks.visibility = View.INVISIBLE
+//                }
+//            } else {
+//                binding.listSearchBooks.visibility = View.VISIBLE
+//                binding.empty.visibility = View.INVISIBLE
+//                adapter.submitList(it)
+//            }
+//        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.bookList.observe(viewLifecycleOwner, list)
 
         binding.tvCancel.setOnClickListener {
             findNavController().navigateUp()
@@ -48,5 +61,16 @@ class Search : Fragment(R.layout.screen_search) {
         binding.inputBook.textChanges().onEach {
             viewModel.search(it.toString())
         }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private val list = Observer<List<BookData>> {
+        if (it.isEmpty()) {
+            binding.empty.visibility = View.VISIBLE
+            binding.listSearchBooks.visibility = View.INVISIBLE
+        } else {
+            binding.empty.visibility = View.GONE
+            binding.listSearchBooks.visibility = View.VISIBLE
+            adapter.submitList(it)
+        }
     }
 }
