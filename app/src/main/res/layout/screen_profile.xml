@@ -268,8 +268,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/empty_list"
         tools:visibility="gone"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/light_grey2"
         android:layout_gravity="center"
