@@ -7,12 +7,13 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -21,7 +22,6 @@ import uz.gita.dima.kitapxanam.data.model.BookData
 import uz.gita.dima.kitapxanam.domain.usecase.SavedBooksUseCase
 import uz.gita.dima.kitapxanam.presenter.sreens.saved.viewmodel.SavedViewModel
 import uz.gita.dima.kitapxanam.util.log
-import uz.gita.dima.kitapxanam.util.toasT
 import java.io.File
 import javax.inject.Inject
 
@@ -30,22 +30,36 @@ class SavedViewModelImpl @Inject constructor(
     private val savedBooksUseCase: SavedBooksUseCase
 ) : ViewModel(), SavedViewModel {
     override val errorData = MutableLiveData<String>()
-    override val booksData = MutableLiveData<List<BookData>>()
+    override val booksData = MutableStateFlow(listOf<BookData>())
     override val progress = MutableLiveData<Boolean>()
 
     override fun getAllData(context: Context) {
         progress.value = true
-        savedBooksUseCase.getSavedBooks(context).onEach {
-            it.onSuccess {
-                progress.value = false
-                booksData.value = it
+//        savedBooksUseCase.getSavedBooks(context).onEach {
+//            it.onSuccess {
+//                progress.value = false
+//                booksData.value = it
+//            }
+//            it.onFailure {
+//                progress.value = false
+//                Log.d("RRR", "Error -> ${it.message}")
+//                errorData.value = it.message
+//            }
+//        }.launchIn(viewModelScope)
+
+        viewModelScope.launch {
+            savedBooksUseCase.getSavedBooks(context).collect {
+                it.onSuccess { list ->
+                    progress.value = false
+                    booksData.value = list
+                }
+                it.onFailure {
+                    progress.value = false
+                    Log.d("RRR", "Error -> ${it.message}")
+                    errorData.value = it.message
+                }
             }
-            it.onFailure {
-                progress.value = false
-                Log.d("RRR", "Error -> ${it.message}")
-                errorData.value = it.message
-            }
-        }.launchIn(viewModelScope)
+        }
     }
 
     override fun showDeleteDialog(context: Context, book: BookData) {
